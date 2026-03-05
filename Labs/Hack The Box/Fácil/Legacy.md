@@ -8,6 +8,7 @@
 > **✅ Pwned:** 🟢 Sí
 
 ---
+
 ## 🔍 Reconocimiento y Enumeración
 
 Antes de comenzar con la enumeración, lanzamos un ping para verificar conectividad con la máquina objetivo. Además del simple echo reply, aprovecharemos el valor del **TTL** para intuir el sistema operativo: un TTL cercano a **128** indica Windows, mientras que uno cercano a **64** apunta a Linux.
@@ -20,9 +21,10 @@ Antes de comenzar con la enumeración, lanzamos un ping para verificar conectivi
 > `-c 1` — Envía **un único paquete ICMP** y termina, en lugar de pingear indefinidamente.
 > `10.129.11.4` — **IP objetivo** a la que se lanza el ping.
 
-![[assets/Legacy-img-04-03-2026.png]]
+![](/assets/Legacy-img-04-03-2026.png)
 
 Como se puede observar en el output, obtenemos respuesta con un TTL de **127**, lo que nos indica que estamos ante una máquina **Windows**. Confirmada la conectividad, procedemos con la enumeración.
+
 ### 👁️ Enumeración con NMAP
 
 #### Enumeración de puertos
@@ -44,7 +46,7 @@ Comenzamos la fase de enumeración identificando qué puertos se encuentran abie
 > `-Pn` — Sin ping previo, asume el host activo.
 > `-oN ports` — Guarda el output en formato normal en un archivo llamado `ports`.
 
-![[assets/Legacy-img-04-03-2026-1.png]]
+![](/assets/Legacy-img-04-03-2026-1.png)
 
 Los puertos abiertos identificados son **135, 139 y 445**, todos relacionados con servicios **RPC y SMB**, lo que ya orienta la superficie de ataque hacia protocolos de red Windows.
 
@@ -68,7 +70,7 @@ Con los puertos abiertos identificados, lanzamos nmap con detección de versione
 > `-oN version` — Guarda el output en formato normal en un archivo llamado `version`.
 > `10.129.11.4` — **IP objetivo** del escaneo.
 
-![[assets/Legacy-img-04-03-2026-2.png]]
+![](/assets/Legacy-img-04-03-2026-2.png)
 
 ---
 
@@ -90,7 +92,7 @@ Con los servicios identificados, procedemos a lanzar los scripts de la categorí
 > `-vvv` — **Triple verbose**, muestra información en tiempo real mientras escanea.
 > `-oN vuln` — Guarda el output en formato normal en un archivo llamado `vuln`.
 
-![[assets/Legacy-img-04-03-2026-3.png]]
+![](/assets/Legacy-img-04-03-2026-3.png)
 
 El escaneo revela dos vulnerabilidades críticas en el puerto **445**: **MS17-010** y **MS08-067**. Ambas permiten ejecución remota de código sin autenticación sobre SMB. Optamos por explotar **MS08-067**, ya que el sistema objetivo es Windows XP, plataforma para la que este exploit fue originalmente diseñado y tiene una tasa de éxito muy alta.
 
@@ -123,7 +125,7 @@ Iniciamos Metasploit con su base de datos activa y buscamos el módulo correspon
 > `sudo msfconsole` — Lanza la **consola interactiva** de Metasploit.
 > `search ms08-067` — Busca en la base de datos de Metasploit el módulo asociado a la vulnerabilidad.
 
-![[assets/Legacy-img-04-03-2026-4.png]]
+![](/assets/Legacy-img-04-03-2026-4.png)
 
 Seleccionamos el módulo con `use 0`, revisamos los parámetros con `options` y configuramos los valores necesarios:
 
@@ -144,7 +146,7 @@ Seleccionamos el módulo con `use 0`, revisamos los parámetros con `options` y 
 > `set LPORT` — Establece el **puerto local** en escucha para recibir la sesión.
 > `run` — Ejecuta el exploit contra el objetivo.
 
-![[assets/Legacy-img-04-03-2026-5.png]]
+![](/assets/Legacy-img-04-03-2026-5.png)
 
 El exploit completa con éxito y obtenemos una sesión de **Meterpreter** directamente como `NT AUTHORITY\SYSTEM`, el nivel de privilegio más alto en Windows. No es necesaria ninguna escalada de privilegios. Ejecutamos `shell` para operar desde una shell nativa y navegamos a los directorios de los usuarios para recuperar las flags.
 
@@ -168,4 +170,4 @@ El acceso inicial obtenido mediante MS08-067 ya otorga privilegios de **SYSTEM**
 ## 📝 Lecciones Aprendidas
 
 > [!tip] Takeaways
-> Legacy es un ejemplo clásico de lo que ocurre cuando un sistema no recibe actualizaciones de seguridad: dos vulnerabilidades críticas con CVSS 10.0 expuestas directamente en la red, sin necesidad de credenciales ni interacción del usuario. El aprendizaje principal es entender el **flujo de decisión ante múltiples CVEs**: cuando el escaneo devuelve MS17-010 y MS08-067 simultáneamente, hay que analizar el contexto del sistema operativo para elegir el vector más adecuado. En un Windows XP, MS08-067 es la apuesta más sólida. Por último, esta máquina refuerza la importancia de dominar **Metasploit como plataforma**, especialmente la correcta configuración del `LHOST` con la IP del túnel VPN, un detalle que marca la diferencia entre obtener sesión o no.
+> Legacy es un ejemplo clásico de lo que ocurre cuando un sistema no recibe actualizaciones de seguridad: dos vulnerabilidades críticas con CVSS 10.0 expuestas directamente en la red, sin necesidad de credenciales ni interacción del usuario. El aprendizaje principal es entender el **flujo de decisión ante múltiples CVEs**: cuando el escaneo devuelve MS17-010 y MS08-067 simultáneamente, hay que analizar el contexto del sistema operativo para elegir el vector más adecuado. En un Windows XP, MS08-067 is la apuesta más sólida. Por último, esta máquina refuerza la importancia de dominar **Metasploit como plataforma**, especialmente la correcta configuración del `LHOST` con la IP del túnel VPN, un detalle que marca la diferencia entre obtener sesión o no.

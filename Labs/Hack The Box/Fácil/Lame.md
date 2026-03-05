@@ -1,4 +1,3 @@
-# 🏴 Writeup — Lame
 
 > [!info] 📋 Información de la Máquina
 > **🖥️ OS:** Linux
@@ -22,7 +21,7 @@ Antes de comenzar con la enumeración, lanzamos un ping para verificar conectivi
 > `-c 1` — Envía **un único paquete ICMP** y termina, en lugar de pingear indefinidamente.
 > `10.129.15.38` — **IP objetivo** a la que se lanza el ping.
 
-![](assets/Lame-img-03-03-2026.png)
+![](/assets/Lame-img-03-03-2026.png)
 
 Como se puede observar en el output, obtenemos respuesta con un TTL de **63**, lo que nos indica que estamos ante una máquina **Linux**. Confirmada la conectividad, procedemos con la enumeración.
 
@@ -47,7 +46,7 @@ Comenzamos la fase de enumeración identificando qué puertos se encuentran abie
 > `-vvv` — **Triple verbose**, muestra información en tiempo real mientras escanea.
 > `-oN ports` — Guarda el output en formato normal en un archivo llamado `ports`.
 
-![](assets/Lame-img-03-03-2026-1.png)
+![](/assets/Lame-img-03-03-2026-1.png)
 
 El escaneo revela cinco puertos abiertos: **21 (FTP), 22 (SSH), 139 y 445 (SMB) y 3632 (DistCC)**. Una superficie de ataque variada que merece un análisis detallado de versiones.
 
@@ -72,8 +71,8 @@ Con los puertos abiertos identificados, lanzamos nmap con detección de versione
 > `10.129.15.38` — **IP objetivo** del escaneo.
 > `-oN version` — Guarda el output en formato normal en un archivo llamado `version`.
 
-![](assets/Lame-img-03-03-2026-2.png)
-![](assets/Lame-img-03-03-2026-4.png)
+![](/assets/Lame-img-03-03-2026-2.png)
+![](/assets/Lame-img-03-03-2026-4.png)
 
 Dos hallazgos inmediatos: el servicio FTP tiene el **login anónimo habilitado**, y el servicio Samba corre en su versión **3.0.20**. Ambos son señales de alerta que anotamos para investigar.
 
@@ -97,11 +96,11 @@ Con los servicios y versiones identificados, procedemos a lanzar los scripts de 
 > `-vvv` — **Triple verbose**, muestra información en tiempo real mientras escanea.
 > `-oN vuln` — Guarda el output en formato normal en un archivo llamado `vuln`.
 
-![](assets/Lame-img-03-03-2026-5.png)
+![](/assets/Lame-img-03-03-2026-5.png)
 
 El escaneo confirma que el servicio **DistCC** en el puerto **3632** es vulnerable al **CVE-2004-2687** (CVSS 9.3). Sin embargo, tenemos un vector más directo y limpio: **Samba 3.0.20**. Antes de ir a la explotación, accedemos al FTP anónimo para descartar contenido relevante.
 
-![](assets/Lame-img-03-03-2026-6.png)
+![](/assets/Lame-img-03-03-2026-6.png)
 
 El servidor FTP no contiene ningún archivo de interés. Descartado este vector, centramos el ataque en Samba.
 
@@ -121,7 +120,7 @@ El servidor FTP no contiene ningún archivo de interés. Descartado este vector,
 
 Durante la enumeración de versiones identificamos que el servicio **Samba** corre en su versión **3.0.20**, directamente en el rango vulnerable. Recurrimos a **Metasploit**, que dispone de un módulo dedicado con ranking **excellent** para esta vulnerabilidad.
 
-![](assets/Lame-img-03-03-2026-7.png)
+![](/assets/Lame-img-03-03-2026-7.png)
 
 > [!tip] Explotar Samba 3.0.20 con el módulo usermap_script en Metasploit
 > ```python
@@ -142,7 +141,7 @@ Durante la enumeración de versiones identificamos que el servicio **Samba** cor
 
 El exploit completa con éxito y obtenemos una shell directamente como **root**. La máquina queda completamente comprometida desde el acceso inicial, sin necesidad de escalar privilegios.
 
-![](assets/Lame-img-03-03-2026-8.png)
+![](/assets/Lame-img-03-03-2026-8.png)
 
 ---
 

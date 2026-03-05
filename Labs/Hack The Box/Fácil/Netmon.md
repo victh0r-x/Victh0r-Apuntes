@@ -22,7 +22,7 @@ Antes de comenzar con la enumeración, lanzamos un ping para verificar conectivi
 > `-c 1` — Envía **un único paquete ICMP** y termina, en lugar de pingear indefinidamente.
 > `10.129.230.176` — **IP objetivo** a la que se lanza el ping.
 
-![](assets/Netmon-img-04-03-2026.png)
+![](/assets/Netmon-img-04-03-2026.png)
 
 Como se puede observar en el output, obtenemos respuesta con un TTL de **127**, lo que nos indica que estamos ante una máquina **Windows**. Confirmada la conectividad, procedemos con la enumeración.
 
@@ -47,7 +47,7 @@ Comenzamos la fase de enumeración identificando qué puertos se encuentran abie
 > `-vvv` — **Triple verbose**, muestra información en tiempo real mientras escanea.
 > `-oN ports` — Guarda el output en formato normal en un archivo llamado `ports`.
 
-![](assets/Netmon-img-04-03-2026-1.png)
+![](/assets/Netmon-img-04-03-2026-1.png)
 
 El escaneo revela una superficie de ataque amplia y variada. Destacamos los puertos más relevantes de cara a la explotación:
 
@@ -77,8 +77,8 @@ Con los puertos identificados, lanzamos nmap con detección de versiones y scrip
 > `10.129.230.176` — **IP objetivo** del escaneo.
 > `-oN version` — Guarda el output en formato normal en un archivo llamado `version`.
 
-![](assets/Netmon-img-04-03-2026-2.png)
-![](assets/Netmon-img-04-03-2026-4.png)
+![](/assets/Netmon-img-04-03-2026-2.png)
+![](/assets/Netmon-img-04-03-2026-4.png)
 
 Dos hallazgos inmediatos que marcan el rumbo de la explotación. Primero, el script `ftp-anon` de nmap confirma que el servicio FTP tiene el **login anónimo habilitado**, lo que nos da acceso al sistema de archivos del servidor sin necesidad de credenciales. Segundo, el servicio web en el puerto 80 está activo y responde, pendiente de inspección manual.
 
@@ -102,7 +102,7 @@ Con los servicios y versiones identificados, lanzamos los scripts de la categor�
 > `-vvv` — **Triple verbose**, muestra información en tiempo real mientras escanea.
 > `-oN vuln` — Guarda el output en formato normal en un archivo llamado `vuln`.
 
-![](assets/Netmon-img-04-03-2026-5.png)
+![](/assets/Netmon-img-04-03-2026-5.png)
 
 El escaneo no devuelve resultados relevantes, probablemente debido a algún mecanismo de filtrado o firewall activo que está bloqueando o descartando las sondas de los scripts. Esto es habitual en entornos Windows con Defender activo o reglas de firewall restrictivas. No nos bloqueamos aquí y continuamos explorando los vectores identificados manualmente.
 
@@ -147,7 +147,7 @@ El primer vector a explotar es el más inmediato: el **login anónimo FTP**. Est
 
 Una vez dentro, navegamos por la estructura de directorios del servidor. El acceso FTP anónimo nos posiciona directamente en la raíz del sistema de archivos de Windows, lo que nos permite movernos libremente. Navegamos hasta `C:\Users\Public\Desktop\` donde localizamos la flag de usuario.
 
-![](assets/Netmon-img-04-03-2026-7.png)
+![](/assets/Netmon-img-04-03-2026-7.png)
 
 Al intentar leer el archivo directamente desde la sesión FTP comprobamos que no tenemos permisos de lectura en remoto. Esto es habitual en servidores FTP configurados con restricciones de lectura directa. La solución es sencilla: descargamos el archivo a nuestra máquina local con el comando `get` y lo leemos desde ahí con `cat`.
 
@@ -157,7 +157,7 @@ Al intentar leer el archivo directamente desde la sesión FTP comprobamos que no
 > get user.txt
 > ```
 
-![](assets/Netmon-img-04-03-2026-8.png)
+![](/assets/Netmon-img-04-03-2026-8.png)
 
 Flag de usuario obtenida. Continuamos con la explotación para escalar hacia root.
 
@@ -167,7 +167,7 @@ Flag de usuario obtenida. Continuamos con la explotación para escalar hacia roo
 
 Accedemos al servicio web en el puerto 80 desde el navegador y nos encontramos con el panel de login de **PRTG Network Monitor**.
 
-![](assets/Netmon-img-05-03-2026.png)
+![](/assets/Netmon-img-05-03-2026.png)
 
 > [!info] ¿Qué es PRTG Network Monitor?
 > **PRTG** es una herramienta de monitorización de infraestructura de red ampliamente utilizada en entornos empresariales. Permite supervisar el estado de dispositivos, servicios, tráfico de red y métricas del sistema en tiempo real. Sus archivos de configuración almacenan parámetros del sistema, tareas programadas y en muchas versiones, **credenciales en texto plano o codificado en Base64**, lo que los convierte en un objetivo de alto valor durante una auditoría.
@@ -193,8 +193,8 @@ Descargamos el archivo con `get` y lo analizamos con `cat`. Revisando el conteni
 
 Con las credenciales correctas accedemos al panel de PRTG:
 
-![](assets/Netmon-img-05-03-2026-1.png)
-![](assets/Netmon-img-05-03-2026-2.png)
+![](/assets/Netmon-img-05-03-2026-1.png)
+![](/assets/Netmon-img-05-03-2026-2.png)
 
 ---
 
@@ -202,16 +202,16 @@ Con las credenciales correctas accedemos al panel de PRTG:
 
 Con acceso autenticado al panel, el siguiente paso es determinar si la versión instalada tiene vulnerabilidades conocidas. Lanzamos **searchsploit** para buscar exploits públicos:
 
-![](assets/Netmon-img-05-03-2026-6.png)
+![](/assets/Netmon-img-05-03-2026-6.png)
 
 Encontramos el exploit **46527**, un script bash que aprovecha una vulnerabilidad de **inyección de comandos autenticada** en PRTG. Aunque la versión no coincide exactamente con la instalada, es suficientemente cercana como para probarlo. La vulnerabilidad permite a un usuario autenticado con privilegios de administrador ejecutar comandos arbitrarios en el sistema operativo subyacente a través de la funcionalidad de notificaciones de PRTG.
 
-![](assets/Netmon-img-05-03-2026-7.png)
+![](/assets/Netmon-img-05-03-2026-7.png)
 
 El exploit requiere nuestra **cookie de sesión activa** como parámetro de autenticación para operar contra la API de PRTG. Para obtenerla abrimos las herramientas de desarrollo del navegador con `F12`, navegamos a la pestaña **Storage → Cookies** y copiamos el valor de la cookie de sesión de PRTG.
 
-![](assets/Netmon-img-05-03-2026-8.png)
-![](assets/Netmon-img-05-03-2026-9.png)
+![](/assets/Netmon-img-05-03-2026-8.png)
+![](/assets/Netmon-img-05-03-2026-9.png)
 
 Con la cookie en mano, ejecutamos el exploit:
 
@@ -223,7 +223,7 @@ Con la cookie en mano, ejecutamos el exploit:
 > `-u` — **URL del panel PRTG** objetivo.
 > `-c` — **Cookie de sesión activa**, necesaria para que el exploit se autentique correctamente contra la API de PRTG y ejecute los comandos con privilegios de administrador.
 
-![](assets/Netmon-img-05-03-2026-10.png)
+![](/assets/Netmon-img-05-03-2026-10.png)
 
 El exploit ejecuta con éxito y crea automáticamente un nuevo usuario local en el sistema: `pentest` con contraseña `P3nT3st!` y perteneciente al grupo **Administrators**. Con estas credenciales utilizamos **psexec** de Impacket para obtener una shell remota interactiva como `NT AUTHORITY\SYSTEM`.
 
@@ -238,7 +238,7 @@ El exploit ejecuta con éxito y crea automáticamente un nuevo usuario local en 
 > `psexec.py` — Script de Impacket que utiliza SMB para ejecutar comandos remotos en sistemas Windows, obteniendo una shell interactiva como `SYSTEM`.
 > `pentest@10.129.230.176` — **Usuario creado por el exploit** y **IP objetivo**. La contraseña `P3nT3st!` se introduce de forma interactiva.
 
-![](assets/Netmon-img-05-03-2026-11.png)
+![](/assets/Netmon-img-05-03-2026-11.png)
 
 Obtenemos shell directamente como `NT AUTHORITY\SYSTEM`. Navegamos hasta `C:\Users\Administrator\Desktop\` para recuperar la flag de root y completar la máquina.
 

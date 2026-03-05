@@ -1,4 +1,3 @@
-# 🏴 Writeup — Jerry
 
 > [!info] 📋 Información de la Máquina
 > **🖥️ OS:** Windows
