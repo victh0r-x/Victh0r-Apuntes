@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Labs/Hack The Box/Fácil/Netmon.md",
+                "file": "Escalada de privilegios/Windows/OS Attacks/🗂️ Vulnerable Services — Escalada de Privilegios mediante Aplicaciones de Terceros Vulnerables.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Netmon"
+              "title": "🗂️ Vulnerable Services — Escalada de Privilegios mediante Aplicaciones de Terceros Vulnerables"
             }
           }
         ]
@@ -195,12 +195,15 @@
   },
   "active": "0ba9901397547b1a",
   "lastOpenFiles": [
-    "Labs/Hack The Box/Fácil/Lame.md",
-    "Labs/Hack The Box/Fácil/A_Plantilla.md",
+    "Escalada de privilegios/Windows/OS Attacks/🗂️ Weak Permissions — Escalada de Privilegios por Permisos Débiles en Servicios y Registro.md",
+    "Escalada de privilegios/Windows/OS Attacks/🗂️ Vulnerable Services — Escalada de Privilegios mediante Aplicaciones de Terceros Vulnerables.md",
+    "Escalada de privilegios/Linux/Linux.md",
     "Labs/Hack The Box/Fácil/Netmon.md",
-    "Labs/Hack The Box/Fácil/Netmon 1.md",
-    "Labs/Hack The Box/Fácil/Legacy.md",
     "Labs/Hack The Box/Fácil/Jerry.md",
+    "Labs/Hack The Box/Fácil/A_Plantilla.md",
+    "Labs/Hack The Box/Fácil/Lame.md",
+    "Labs/Hack The Box/Fácil/Legacy.md",
+    "Labs/Hack The Box/Fácil/Netmon 1.md",
     "Labs/Dockerlabs/Intermedio/Apolos.md",
     "README.md",
     "GIT",
@@ -215,7 +218,6 @@
     "assets/Netmon-img-05-03-2026-3.png",
     "assets/Netmon-img-05-03-2026-2.png",
     "Labs/Hack The Box/Fácil/Legacy_en.md",
-    "Escalada de privilegios/Windows/OS Attacks/Untitled.md",
     "Escalada de privilegios/Windows/OS Attacks/🗂️ Kernel Exploits — Escalada de Privilegios mediante Vulnerabilidades del Sistema Operativo.md",
     "Escalada de privilegios/Windows/OS Attacks/🗂️ User Account Control (UAC) — Funcionamiento y Bypass mediante DLL Hijacking.md",
     "Hacking/Certificaciones/eJPT - INE SECURITY.md",
@@ -230,8 +232,6 @@
     "Hacking/Labs/Dockerlabs/Fácil/WalkingCMS.md",
     "Hacking/Labs/Dockerlabs/Muy fácil/Injection.md",
     "Hacking/Labs/Dockerlabs/Fácil/Chocolatelovers.md",
-    "Hacking/Herramientas/Nmap.md",
-    "Hacking/Labs/Dockerlabs/Fácil/Library.md",
     "Hacking/Vulnerabilidades/SSTI (Server Side Template Injection)",
     "Hacking/Vulnerabilidades/XSS (Cross-Site Scripting)",
     "Hacking/Vulnerabilidades/Local File Inclusion (LFI)",
