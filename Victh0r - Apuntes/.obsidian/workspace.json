@@ -1,0 +1,245 @@
+{
+  "main": {
+    "id": "c8e7b030b1f80505",
+    "type": "split",
+    "children": [
+      {
+        "id": "1b3b5b0bd7531d44",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0ba9901397547b1a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Labs/Hack The Box/Fácil/Netmon.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Netmon"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "dd6010321048b41c",
+    "type": "split",
+    "children": [
+      {
+        "id": "144410821df16dc3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ecc6b6b3134102c4",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "9a7590148e36e8b0",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Buscar"
+            }
+          },
+          {
+            "id": "3fe6bd6c3e91e985",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Marcadores"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "4abf28fed15ce6bb",
+    "type": "split",
+    "children": [
+      {
+        "id": "21572ec2a533226a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3026d330fd8e1a47",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Enlaces entrantes"
+            }
+          },
+          {
+            "id": "7e21d48ceb043b78",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Enlaces salientes"
+            }
+          },
+          {
+            "id": "d13c4dbe5e8f43aa",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Etiquetas"
+            }
+          },
+          {
+            "id": "e389387662c05c64",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Todas las propiedades"
+            }
+          },
+          {
+            "id": "9fd3437b37822432",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Labs/Hack The Box/Fácil/Netmon.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Netmon"
+            }
+          },
+          {
+            "id": "6e61fc7a378cdd68",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "obsidian-git:Open Git source control": false
+    }
+  },
+  "active": "ecc6b6b3134102c4",
+  "lastOpenFiles": [
+    "Labs/Hack The Box/Fácil/Legacy.md",
+    "Labs/Hack The Box/Fácil/Lame.md",
+    "Labs/Hack The Box/Fácil/A_Plantilla.md",
+    "Labs/Hack The Box/Fácil/Jerry.md",
+    "README.md",
+    "Labs/Hack The Box/Fácil/Netmon.md",
+    "GIT",
+    "assets/Netmon-img-05-03-2026-11.png",
+    "assets/Netmon-img-05-03-2026-10.png",
+    "assets/Netmon-img-05-03-2026-9.png",
+    "assets/Netmon-img-05-03-2026-8.png",
+    "assets/Netmon-img-05-03-2026-7.png",
+    "assets/Netmon-img-05-03-2026-6.png",
+    "assets/Netmon-img-05-03-2026-5.png",
+    "assets/Netmon-img-05-03-2026-4.png",
+    "assets/Netmon-img-05-03-2026-3.png",
+    "assets/Netmon-img-05-03-2026-2.png",
+    "Labs/Hack The Box/Fácil/Legacy_en.md",
+    "Escalada de privilegios/Windows/OS Attacks/Untitled.md",
+    "Escalada de privilegios/Windows/OS Attacks/🗂️ Kernel Exploits — Escalada de Privilegios mediante Vulnerabilidades del Sistema Operativo.md",
+    "Escalada de privilegios/Windows/OS Attacks/🗂️ User Account Control (UAC) — Funcionamiento y Bypass mediante DLL Hijacking.md",
+    "Hacking/Certificaciones/eJPT - INE SECURITY.md",
+    "Hacking/Labs/VulnHub/SYMFONOS 1 - SYMFONOS 2 - PIVOTING.md",
+    "Hacking/Labs/VulnHub/SYMFONOS 3 - SYSADMIN - SYMFONOS 5.md",
+    "Hacking/Comandos & info útil/Curl.md",
+    "Hacking/Labs/Dockerlabs/Intermedio/Swiss (hold).md",
+    "Hacking/Labs/Dockerlabs/Intermedio/Apolos.md",
+    "Hacking/Herramientas/Meterpreter.md",
+    "Hacking/Labs/Dockerlabs/Fácil/Aidor.md",
+    "Hacking/Labs/Dockerlabs/Muy fácil/Obsession.md",
+    "Hacking/Labs/Dockerlabs/Fácil/WalkingCMS.md",
+    "Hacking/Labs/Dockerlabs/Muy fácil/Injection.md",
+    "Hacking/Labs/Dockerlabs/Fácil/Chocolatelovers.md",
+    "Hacking/Herramientas/Nmap.md",
+    "Hacking/Labs/Dockerlabs/Fácil/Library.md",
+    "Hacking/Labs/VulnHub/Sumo.md",
+    "Hacking/Labs/Dockerlabs/Fácil/Psycho.md",
+    "Hacking/Vulnerabilidades/SSTI (Server Side Template Injection)",
+    "Hacking/Vulnerabilidades/XSS (Cross-Site Scripting)",
+    "Hacking/Vulnerabilidades/Local File Inclusion (LFI)",
+    "Hacking/Escalada de privilegios/Windows",
+    "Hacking/Vulnerabilidades/Access Control",
+    "Hacking/Expresiones Regulares en Linux",
+    "Hacking/Labs/Hack The Box/Challenges",
+    "Hacking/Vulnerabilidades/Shell shock",
+    "Hacking/Vulnerabilidades/File upload"
+  ]
+}
