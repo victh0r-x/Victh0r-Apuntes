@@ -40,11 +40,11 @@ Comenzamos la fase de enumeración identificando qué puertos se encuentran abie
 > `--min-rate 5000` — Fuerza un mínimo de **5000 paquetes por segundo**.
 > `-n` — Sin resolución DNS.
 > `-Pn` — Sin ping previo, asume el host activo.
-> `IP_MAQUINA` — **IP objetivo** del escaneo.
+> `10.129.14.68` — **IP objetivo** del escaneo.
 > `-vvv` — **Triple verbose**, muestra información en tiempo real mientras escanea.
 > `-oN ports` — Guarda el output en formato normal en un archivo llamado `ports`.
 
-![](assets/Jerry-img-02-03-2026-1.png)
+![](/assets/Jerry-img-02-03-2026-1.png)
 
 ---
 #### Enumeración de versiones y servicios
@@ -58,15 +58,15 @@ Con los puertos abiertos ya identificados, el siguiente paso es determinar qué 
 >
 > `-sC` — Lanza los **scripts por defecto** del motor NSE de nmap.
 > `-sV` — **Detección de versiones** de los servicios que corren en cada puerto.
-> `-pPUERTOS,SEPARADOS,POR,COMAS` — Escanea **únicamente los puertos encontrados** en el paso anterior.
+> `-p8080` — Escanea **únicamente los puertos encontrados** en el paso anterior.
 > `--min-rate 5000` — Fuerza un mínimo de **5000 paquetes por segundo**.
 > `-n` — Sin resolución DNS.
 > `-Pn` — Sin ping previo, asume el host activo.
 > `-vvv` — **Triple verbose**, muestra información en tiempo real mientras escanea.
-> `IP_VICTIMA` — **IP objetivo** del escaneo.
+> `10.129.14.68` — **IP objetivo** del escaneo.
 > `-oN version` — Guarda el output en formato normal en un archivo llamado `version`.
 
-![](assets/Jerry-img-02-03-2026-2.png)
+![](/assets/Jerry-img-02-03-2026-2.png)
 
 ---
 #### Enumeración de posibles vulnerabilidades
@@ -79,16 +79,17 @@ Con los servicios y versiones identificados, procedemos a lanzar el conjunto de 
 > ```
 >
 > `--script vuln` — Lanza la categoría de scripts **vuln** del motor NSE, que comprueba vulnerabilidades conocidas en los servicios detectados.
-> `-pPUERTOS` — Apunta únicamente a los **puertos ya identificados** anteriormente.
-> `IP_VICTIMA` — **IP objetivo** del escaneo.
+> `-p8080` — Apunta únicamente a los **puertos ya identificados** anteriormente.
+> `10.129.14.68` — **IP objetivo** del escaneo.
 > `--min-rate 5000` — Fuerza un mínimo de **5000 paquetes por segundo**.
 > `-n` — Sin resolución DNS.
 > `-Pn` — Sin ping previo, asume el host activo.
 > `-vvv` — **Triple verbose**, muestra información en tiempo real mientras escanea.
 > `-oN vuln` — Guarda el output en formato normal en un archivo llamado `vuln`.
+
 ---
 
-![](assets/Jerry-img-02-03-2026-3.png)
+![](/assets/Jerry-img-02-03-2026-3.png)
 
 El análisis del script `vuln` revela que el sistema podría ser vulnerable a **CVE-2007-6750**, una vulnerabilidad de tipo **Denial of Service (DoS)** que afecta al servidor HTTP Apache. El fallo permite a un atacante agotar los recursos del servidor manteniendo conexiones HTTP abiertas de forma indefinida mediante peticiones incompletas, lo que se conoce como ataque **Slowloris**. Si bien un DoS no nos otorga acceso directo a la máquina, confirma que el servicio web es una superficie de ataque activa que merece atención en las siguientes fases.
 
@@ -105,10 +106,10 @@ Con el servicio web identificado, procedemos a realizar una enumeración de dire
 > `--ne` — **No muestra errores** en el output, manteniendo la salida limpia.
 > `-x php,txt,html,csv,xml` — Añade **extensiones de archivo** a cada entrada de la wordlist, ampliando la superficie de búsqueda.
 > `-o dir_fuzz` — Guarda el output en un archivo llamado `dir_fuzz`.
- > `-t 40` — Número de hilos a usar.
- 
- ![](assets/Jerry-img-03-03-2026-6.png)
- 
+> `-t 40` — Número de hilos a usar.
+
+![](/assets/Jerry-img-03-03-2026-6.png)
+
 ## 💥 Explotación
 ---
 Tras identificar el panel de administración de **Tomcat**, comprobamos que el servicio es potencialmente vulnerable a un ataque de fuerza bruta sobre el login. Para explotarlo, recurrimos a **Metasploit**, que dispone de un módulo específico para esta tarea.
@@ -120,7 +121,7 @@ Iniciamos el entorno lanzando la base de datos y la consola de Metasploit:
 > sudo msfdb init
 > sudo service postgresql start
 > ```
-> Inicializa la base de datos **PostgreSQL** que usa Metasploit para almacenar resultados y sesiones y Asegura que el servicio de base de datos está **activo y corriendo** antes de lanzar Metasploit.
+> Inicializa la base de datos **PostgreSQL** que usa Metasploit para almacenar resultados y sesiones y asegura que el servicio de base de datos está **activo y corriendo** antes de lanzar Metasploit.
 
 > [!tip] Abrir la consola de Metasploit
 > ```python
@@ -146,13 +147,13 @@ Con el módulo seleccionado, configuramos el objetivo y lanzamos el ataque:
 > `set RHOSTS` — Define la **IP de la máquina objetivo** contra la que se lanzará el ataque de fuerza bruta.
 > `run` — Ejecuta el módulo con los parámetros configurados, probando credenciales por defecto contra el panel de Tomcat.
 
-Tras la ejecución, metasploit comenzará a probar combinaciones posibles, hasta finalmente encontrar la correcta:
+Tras la ejecución, Metasploit comenzará a probar combinaciones posibles, hasta finalmente encontrar la correcta:
 
-![](assets/Jerry-img-03-03-2026.png)
+![](/assets/Jerry-img-03-03-2026.png)
 
 Usamos las credenciales para loguearnos en el panel de manager:
 
-![](assets/Jerry-img-03-03-2026-1.png)
+![](/assets/Jerry-img-03-03-2026-1.png)
 
 Con las credenciales obtenidas gracias al ataque de fuerza bruta, conseguimos acceso al panel de administración de **Tomcat Manager**. Navegando por la interfaz, localizamos un campo que permite la subida de archivos **.WAR**.
 
@@ -161,12 +162,11 @@ Con las credenciales obtenidas gracias al ataque de fuerza bruta, conseguimos ac
 
 Aprovechando esto, generaremos un archivo WAR malicioso con **msfvenom** que, al ser desplegado por el servidor, establecerá una **reverse shell** hacia nuestra máquina, logrando así ejecución remota de código (**RCE**) en el servidor objetivo.
 
-![](assets/Jerry-img-03-03-2026-2.png)
+![](/assets/Jerry-img-03-03-2026-2.png)
 
 Sabiendo que podemos subir un archivo WAR al servidor, procedemos a generarlo con **msfvenom**. Antes de construir el payload definitivo, utilizamos `--list-options` para inspeccionar qué parámetros requiere el módulo y confirmar que necesitamos definir un **LHOST** y un **LPORT**, que corresponden respectivamente a la **IP de nuestra máquina atacante** y al **puerto local en escucha** que recibirá la conexión.
 
 Dado que el servidor corre **Apache Tomcat**, un servidor de aplicaciones **Java**, el payload debe ser compatible con este entorno. Por ello seleccionamos `java/jsp_shell_reverse_tcp`, que genera código **JSP** nativo ejecutable directamente por la JVM de Tomcat, en lugar de un payload nativo de Windows o Linux que no sería interpretado correctamente por el servidor.
-
 
 > [!tip] Generar el archivo WAR malicioso con msfvenom
 > ```python
@@ -181,7 +181,7 @@ Dado que el servidor corre **Apache Tomcat**, un servidor de aplicaciones **Java
 > `-f war` — Define el **formato de salida** como WAR, listo para ser desplegado en Tomcat.
 > `-o revshell.war` — Nombre del **archivo de salida** generado.
 
-![](assets/Jerry-img-03-03-2026-3.png)
+![](/assets/Jerry-img-03-03-2026-3.png)
 
 Ahora subimos el archivo al servidor, y antes de ejecutarlo debemos ponernos en escucha por el puerto local que hemos especificado en el payload. Para ello usamos el archiconocido netcat:
 
@@ -197,11 +197,11 @@ Ahora subimos el archivo al servidor, y antes de ejecutarlo debemos ponernos en 
 
 Ahora ejecutamos el archivo que hemos subido:
 
-![](assets/Jerry-img-03-03-2026-4.png)
+![](/assets/Jerry-img-03-03-2026-4.png)
 
 Hacemos un click sobre la ruta **/revshell** y ya tendremos acceso al servidor como root. Ahora solo queda leer las flags y habremos completado la máquina con éxito.
 
-![](assets/Jerry-img-03-03-2026-5.png)
+![](/assets/Jerry-img-03-03-2026-5.png)
 
 ---
 ## 📝 Lecciones Aprendidas
