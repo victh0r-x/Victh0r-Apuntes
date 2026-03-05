@@ -19,7 +19,7 @@ Antes de comenzar con la enumeración, lanzamos un ping para verificar conectivi
 > `-c 1` — Envía **un único paquete ICMP** y termina, en lugar de pingear indefinidamente.
 > `10.129.14.68` — **IP objetivo** a la que se lanza el ping.
 
-![](../assets/Jerry-img-02-03-2026.png)
+![](/assets/Jerry-img-02-03-2026.png)
 
 Como se puede observar en el output, obtenemos respuesta con un TTL de **127**, lo que nos indica que estamos ante una máquina **Windows**. Confirmada la conectividad, procedemos con la enumeración.
 
