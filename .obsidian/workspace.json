@@ -169,8 +169,8 @@
             "state": {
               "type": "git-view",
               "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
+              "icon": "lucide-ghost",
+              "title": "git-view"
             }
           }
         ],
@@ -193,14 +193,15 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "ecc6b6b3134102c4",
+  "active": "0ba9901397547b1a",
   "lastOpenFiles": [
     "Labs/Hack The Box/Fácil/Legacy.md",
     "Labs/Hack The Box/Fácil/Lame.md",
-    "Labs/Hack The Box/Fácil/A_Plantilla.md",
     "Labs/Hack The Box/Fácil/Jerry.md",
-    "README.md",
+    "Labs/Dockerlabs/Intermedio/Apolos.md",
     "Labs/Hack The Box/Fácil/Netmon.md",
+    "Labs/Hack The Box/Fácil/A_Plantilla.md",
+    "README.md",
     "GIT",
     "assets/Netmon-img-05-03-2026-11.png",
     "assets/Netmon-img-05-03-2026-10.png",
@@ -231,7 +232,6 @@
     "Hacking/Herramientas/Nmap.md",
     "Hacking/Labs/Dockerlabs/Fácil/Library.md",
     "Hacking/Labs/VulnHub/Sumo.md",
-    "Hacking/Labs/Dockerlabs/Fácil/Psycho.md",
     "Hacking/Vulnerabilidades/SSTI (Server Side Template Injection)",
     "Hacking/Vulnerabilidades/XSS (Cross-Site Scripting)",
     "Hacking/Vulnerabilidades/Local File Inclusion (LFI)",
