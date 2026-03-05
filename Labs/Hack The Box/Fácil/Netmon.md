@@ -1,4 +1,3 @@
-# 🏴 Writeup — Netmon
 
 > [!info] 📋 Información de la Máquina
 > **🖥️ OS:** Windows
