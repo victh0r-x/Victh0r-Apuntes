@@ -1,4 +1,3 @@
-# 🏴 Writeup — Netmon
 
 | | |
 |---|---|

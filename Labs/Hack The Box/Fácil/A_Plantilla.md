@@ -1,4 +1,3 @@
-# 🏴 Writeup — {{Nombre de la Máquina}}
 
 > [!info] 📋 Información de la Máquina
 > **🖥️ OS:** Windows
