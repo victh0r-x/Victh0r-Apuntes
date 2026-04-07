@@ -13,14 +13,16 @@ Antes de comenzar con la enumeración, lanzamos un ping para verificar conectivi
 
 > [!tip] Verificación de conectividad y detección de OS por TTL
 > ```python
-> ping -c 1 10.129.14.68
+> ping -c 1 10.129.11.19
 > ```
 >
 > `-c 1` — Envía **un único paquete ICMP** y termina, en lugar de pingear indefinidamente.
 > `10.129.14.68` — **IP objetivo** a la que se lanza el ping.
 
+![](assets/Writeup-img-30-03-2026.png)
+
 Como se puede observar en el output, obtenemos respuesta con un TTL de **63**, lo que nos indica que estamos ante una máquina **Linux**. Confirmada la conectividad, procedemos con la enumeración.
-Como se puede observar en el output, obtenemos respuesta con un TTL de **127**, lo que nos indica que estamos ante una máquina **Windows**. Confirmada la conectividad, procedemos con la enumeración.
+
 
 ### 👁️ Enumeración con NMAP
 
@@ -30,7 +32,7 @@ Comenzamos la fase de enumeración identificando qué puertos se encuentran abie
 
 > [!tip] Escaneo de puertos completo y sigiloso
 > ```python
-> nmap -sS -p- --open --min-rate 5000 -n -Pn IP_MAQUINA -vvv -oN ports
+> nmap -sS -p- --open --min-rate 5000 -n -Pn 10.129.11.19 -vvv -oN ports
 > ```
 >
 > `-sS` — **SYN Scan** (half-open). Envía paquetes SYN sin completar el three-way handshake. Sigiloso y rápido, requiere root.
@@ -43,15 +45,16 @@ Comenzamos la fase de enumeración identificando qué puertos se encuentran abie
 > `-vvv` — **Triple verbose**, muestra información en tiempo real mientras escanea.
 > `-oN ports` — Guarda el output en formato normal en un archivo llamado `ports`.
 
----
+![](assets/Writeup-img-30-03-2026-1.png)
 
+---
 #### Enumeración de versiones y servicios
 
 Con los puertos abiertos ya identificados, el siguiente paso es determinar qué servicios y versiones están corriendo en cada uno de ellos. Esto nos permitirá identificar tecnologías concretas y posibles vectores de ataque. Para ello lanzamos nmap con sus scripts por defecto y detección de versiones, apuntando únicamente a los puertos descubiertos en el paso anterior.
 
 > [!tip] Detección de versiones y scripts sobre puertos seleccionados
 > ```python
-> nmap -sC -sV -pPUERTOS,SEPARADOS,POR,COMAS --min-rate 5000 -n -Pn -vvv IP_VICTIMA -oN version
+> nmap -sC -sV -p22,80 --min-rate 5000 -n -Pn -vvv 10.129.11.19 -oN version
 > ```
 >
 > `-sC` — Lanza los **scripts por defecto** del motor NSE de nmap.
@@ -64,49 +67,69 @@ Con los puertos abiertos ya identificados, el siguiente paso es determinar qué 
 > `IP_VICTIMA` — **IP objetivo** del escaneo.
 > `-oN version` — Guarda el output en formato normal en un archivo llamado `version`.
 
----
+![](assets/Writeup-img-30-03-2026-2.png)
 
-#### Enumeración de posibles vulnerabilidades
+Visitamos el servicio web  y vemis lo siguiebnte:
 
-Con los servicios y versiones identificados, procedemos a lanzar el conjunto de scripts de la categoría `vuln` de nmap. Estos scripts comprueban de forma automática si los servicios detectados presentan vulnerabilidades conocidas, lo que nos dará pistas concretas sobre posibles vectores de explotación.
+![](assets/Writeup-img-30-03-2026-3.png)
 
-> [!tip] Detección automática de vulnerabilidades con scripts NSE
-> ```python
-> nmap --script vuln -pPUERTOS IP_VICTIMA --min-rate 5000 -n -Pn -vvv -oN vuln
-> ```
->
-> `--script vuln` — Lanza la categoría de scripts **vuln** del motor NSE, que comprueba vulnerabilidades conocidas en los servicios detectados.
-> `-pPUERTOS` — Apunta únicamente a los **puertos ya identificados** anteriormente.
-> `IP_VICTIMA` — **IP objetivo** del escaneo.
-> `--min-rate 5000` — Fuerza un mínimo de **5000 paquetes por segundo**.
-> `-n` — Sin resolución DNS.
-> `-Pn` — Sin ping previo, asume el host activo.
-> `-vvv` — **Triple verbose**, muestra información en tiempo real mientras escanea.
-> `-oN vuln` — Guarda el output en formato normal en un archivo llamado `vuln`.
----
+Vemos que hay un usuario llamado jkr y vemos que la pagina esta creada con vi, que es un editor de texto.
 
-----
-#### 🌐 Fuzzing Web
+En el archivo version, tambien vemos que hay un directorio /writeup/, accedenos:
 
-Con el puerto 80 activo, procedemos a realizar fuzzing de directorios y archivos para mapear la superficie web expuesta. El objetivo es descubrir rutas ocultas, paneles de administración, archivos de configuración o cualquier recurso no enlazado directamente desde la página principal. Lanzamos gobuster con una wordlist de tamaño medio y un conjunto amplio de extensiones para maximizar la cobertura.
+![](assets/Writeup-img-30-03-2026-4.png)
 
-> [!tip] Fuzzing de directorios y archivos sobre el puerto 80
-> ```bash
-> gobuster dir -u http://10.129.13.209 -w /usr/share/seclists/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-medium.txt --no-error -x php,htm,html,csv,txt,xml --add-slash -t 40 -o fuzzing
-> ```
-> `dir` — Modo de fuerza bruta de directorios y archivos en un servidor web.
-> `-u http://10.129.13.209` — URL objetivo del escaneo.
-> `-w .../DirBuster-2007_directory-list-2.3-medium.txt` — Wordlist en su variante medium para una búsqueda exhaustiva sin ser excesivamente lenta.
-> `--no-error` — No muestra errores en el output, manteniendo la salida limpia.
-> `-x php,htm,html,csv,txt,xml` — Añade extensiones de archivo a cada entrada de la wordlist, ampliando la superficie de búsqueda más allá de los directorios puros.
-> `--add-slash` — Añade una barra final a cada petición, útil para forzar la detección de directorios que requieren trailing slash.
-> `-t 40` — Lanza **40 hilos en paralelo** para acelerar el escaneo.
+Viendo el codigo fuente de la web podemos ver que esta usando el cms de cms made simple, donde ademas vemos que se ha quedado abandonado el proyecto en 2019
+
+![](assets/Writeup-img-30-03-2026-5.png)
+
 ## 💥 Explotación
-
 ---
+Teniendo en cuenta que la web se ha descontinuado en 2019 podemos decir que la version de cms made simplw debe ser de 2019, por lo que si buscamos en google cms made simple cve podemis buscar alguna de 2019 y probar. encontramos la cve-2019-9053 viendo que adecta a las versiones menores de la 2.2.10, asi que hacemos una busqueda en searchsploit de esta verison:
+
+![](assets/Writeup-img-31-03-2026.png)
+
+Es vulnerable a una sql injection, asi que descargamos el exploit con searchsploit -m php/webapps/46635.py
+
+lo ejecutamos con python2 con el coando: python2 exploit.py -u http://writeup.htb/writeup/ y obtenemos lo siguiente:
+
+![](assets/Writeup-img-31-03-2026-1.png)
+
+Un usuario que ya conociamos, jkr, y una contraseña encriptada. 
+Ahora uso el comando hash-identifier para ver de que se trata: hash-identifier 62def4866937f08cc13bab43bb14e6f7  
+![](assets/Writeup-img-31-03-2026-2.png)
+
+Lo desencryptamos y obtengo 5a599ef579066807raykayjay9
+La contraseña era raykayjay9, nos conectamos con el comando ssh jkr@10.129.11.19 y la contraseña
+
+![](assets/Writeup-img-31-03-2026-3.png)
+
+Estamos dentro como usuario y pueod leer la flag.
+
+
 
 ## 🔼 Escalada de Privilegios
-
 ---
+Para escalar privilegios uso la herramienta pspy64 que la descargo de github en mi maquina atacante y la envio a la maquina victima usando uns ervidor web de python por el puerto 8080. Una vez en la maquina victima, lo ejecuto y me conecto por ssh con otra shell para ver que ocurre, y vemos lo siguiente:
+
+![](assets/Writeup-img-31-03-2026-5.png)
+
+Vemos que root  usa el comando sh con el path cuyo primer directorio es usr local bin, al cual tenemos acceso de escritura por ser del grupo staff, cosa que comprobamos al ganar acceso a la maquina
+Para explotar esto, lo que hare es crear un archiovo llamado run-parts dentro del directori /usr local bin, para que al hacer ssh con el usuario jkr, root lo ejecute.
+En este caso el archivo contendra un codigo que convertira el binario /bin/bash en SUID. Para ello creo el archivo con el siguiente codigo: #!/bin/bash chmod 4000 /bin/bash lo guardamos y luego chmod 755 run-parts y nos conectamos otra vez por ssh.
+
+Al hacer esto, ya podemos comprobar que la bash tiene permisos SUID con el comando ls -la /bin/bash
+
+![](assets/Writeup-img-31-03-2026-7.png)
+
+Ahora ejecuto bash -p y soy root:
+
+![](assets/Writeup-img-31-03-2026-8.png)
+
+
+
+
+
+
 
 ## 📝 Lecciones Aprendidas

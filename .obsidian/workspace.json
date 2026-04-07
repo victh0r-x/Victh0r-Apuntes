@@ -13,12 +13,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Escalada de privilegios/Windows/OS Attacks/🗂️ Vulnerable Services — Escalada de Privilegios mediante Aplicaciones de Terceros Vulnerables.md",
+                "file": "Labs/Hack The Box/Fácil/WingData.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "🗂️ Vulnerable Services — Escalada de Privilegios mediante Aplicaciones de Terceros Vulnerables"
+              "title": "WingData"
+            }
+          },
+          {
+            "id": "b823c21df2cc1ed5",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Labs/Dockerlabs/Fácil/Chocolatelovers.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Chocolatelovers"
             }
           }
         ]
@@ -53,7 +67,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "ssh-key",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -61,7 +75,7 @@
                 "sortOrder": "alphabetical"
               },
               "icon": "lucide-search",
-              "title": "Buscar"
+              "title": "Search"
             }
           },
           {
@@ -195,51 +209,51 @@
   },
   "active": "0ba9901397547b1a",
   "lastOpenFiles": [
-    "Escalada de privilegios/Windows/OS Attacks/🗂️ Weak Permissions — Escalada de Privilegios por Permisos Débiles en Servicios y Registro.md",
-    "Escalada de privilegios/Windows/OS Attacks/🗂️ Vulnerable Services — Escalada de Privilegios mediante Aplicaciones de Terceros Vulnerables.md",
-    "Escalada de privilegios/Linux/Linux.md",
-    "Labs/Hack The Box/Fácil/Netmon.md",
-    "Labs/Hack The Box/Fácil/Jerry.md",
+    "assets/WingData-img-07-04-2026-3.png",
+    "assets/WingData-img-07-04-2026-2.png",
+    "assets/WingData-img-07-04-2026-1.png",
+    "assets/WingData-img-07-04-2026.png",
+    "Comandos",
+    "assets/WingData-img-06-04-2026-5.png",
+    "assets/WingData-img-06-04-2026-4.png",
+    "assets/WingData-img-06-04-2026-3.png",
+    "assets/WingData-img-06-04-2026-2.png",
+    "assets/WingData-img-06-04-2026-1.png",
+    "assets/WingData-img-06-04-2026.png",
+    "Labs/Dockerlabs/Fácil/Chocolatelovers.md",
+    "Labs/Hack The Box/Fácil/WingData.md",
+    "assets/WingData-img-05-04-2026-10.png",
     "Labs/Hack The Box/Fácil/A_Plantilla.md",
-    "Labs/Hack The Box/Fácil/Lame.md",
-    "Labs/Hack The Box/Fácil/Legacy.md",
-    "Labs/Hack The Box/Fácil/Netmon 1.md",
-    "Labs/Dockerlabs/Intermedio/Apolos.md",
-    "README.md",
+    "Labs/Hack The Box/Fácil/Kobold.md",
+    "Escalada de privilegios/Linux/SUDO/Nginx.md",
+    "Labs/Hack The Box/Fácil/Broker.md",
+    "Escalada de privilegios/Windows/User and Groups Privileges/🗂️ SeDebugPrivilege — Volcado de Credenciales y RCE como SYSTEM.md",
+    "Escalada de privilegios/Linux/Linux.md",
+    "Escalada de privilegios/Linux/SUDO",
+    "Escalada de privilegios/Linux/Untitled.md",
+    "Labs/Hack The Box/Fácil/Jerry.md",
+    "assets/Return.md",
+    "Labs/Hack The Box/Fácil/Keeper.md",
+    "Labs/Hack The Box/Fácil/Bashed.md",
+    "Labs/Hack The Box/Fácil/Netmon.md",
+    "Labs/Hack The Box/Fácil/Wifinetic.md",
+    "Labs/Dockerlabs/Intermedio/Little Pivoting.md",
+    "Labs/Dockerlabs/Difícil/Big Pivoting.md",
+    "Pivoting, tunneling and Port Forwarding/Pivoting en Redes Windows — SocksOverRDP y Proxifier.md",
+    "Escalada de privilegios/Windows/Restricted enviroments/Untitled.md",
+    "Labs/Hack The Box/Fácil/Writeup.md",
+    "Labs/Hack The Box/Fácil/Facts.md",
+    "Labs/Dockerlabs/Fácil/Library.md",
+    "Labs/Hack The Box/Fácil/Knife.md",
+    "Labs/Dockerlabs/Fácil/WhereIsMyWebShell.md",
+    "Labs/Dockerlabs/Fácil/Move.md",
+    "Labs/Dockerlabs/Difícil",
+    "Pivoting, tunneling and Port Forwarding",
+    "Escalada de privilegios/Windows/Restricted enviroments",
+    "Escalada de privilegios/Windows/Credential Theft",
+    "Herramientas",
     "GIT",
-    "assets/Netmon-img-05-03-2026-11.png",
-    "assets/Netmon-img-05-03-2026-10.png",
-    "assets/Netmon-img-05-03-2026-9.png",
-    "assets/Netmon-img-05-03-2026-8.png",
-    "assets/Netmon-img-05-03-2026-7.png",
-    "assets/Netmon-img-05-03-2026-6.png",
-    "assets/Netmon-img-05-03-2026-5.png",
-    "assets/Netmon-img-05-03-2026-4.png",
-    "assets/Netmon-img-05-03-2026-3.png",
-    "assets/Netmon-img-05-03-2026-2.png",
-    "Labs/Hack The Box/Fácil/Legacy_en.md",
-    "Escalada de privilegios/Windows/OS Attacks/🗂️ Kernel Exploits — Escalada de Privilegios mediante Vulnerabilidades del Sistema Operativo.md",
-    "Escalada de privilegios/Windows/OS Attacks/🗂️ User Account Control (UAC) — Funcionamiento y Bypass mediante DLL Hijacking.md",
-    "Hacking/Certificaciones/eJPT - INE SECURITY.md",
-    "Hacking/Labs/VulnHub/SYMFONOS 1 - SYMFONOS 2 - PIVOTING.md",
-    "Hacking/Labs/VulnHub/SYMFONOS 3 - SYSADMIN - SYMFONOS 5.md",
-    "Hacking/Comandos & info útil/Curl.md",
-    "Hacking/Labs/Dockerlabs/Intermedio/Swiss (hold).md",
-    "Hacking/Labs/Dockerlabs/Intermedio/Apolos.md",
-    "Hacking/Herramientas/Meterpreter.md",
-    "Hacking/Labs/Dockerlabs/Fácil/Aidor.md",
-    "Hacking/Labs/Dockerlabs/Muy fácil/Obsession.md",
-    "Hacking/Labs/Dockerlabs/Fácil/WalkingCMS.md",
-    "Hacking/Labs/Dockerlabs/Muy fácil/Injection.md",
-    "Hacking/Labs/Dockerlabs/Fácil/Chocolatelovers.md",
     "Hacking/Vulnerabilidades/SSTI (Server Side Template Injection)",
-    "Hacking/Vulnerabilidades/XSS (Cross-Site Scripting)",
-    "Hacking/Vulnerabilidades/Local File Inclusion (LFI)",
-    "Hacking/Escalada de privilegios/Windows",
-    "Hacking/Vulnerabilidades/Access Control",
-    "Hacking/Expresiones Regulares en Linux",
-    "Hacking/Labs/Hack The Box/Challenges",
-    "Hacking/Vulnerabilidades/Shell shock",
-    "Hacking/Vulnerabilidades/File upload"
+    "Hacking/Vulnerabilidades/XSS (Cross-Site Scripting)"
   ]
 }
